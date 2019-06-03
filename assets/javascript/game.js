@@ -22,14 +22,19 @@ var questions = [
 
 
 $(document).ready(function(){ //On page load...
+    // Load sfx
 
     console.log(questions[1].currentAnswer)
 
     //Splash screen
+    $("#start").on("click", function() {
+
+        $("#splash").css("visibility", "hidden"); //...hides splash div
+        
         // Animate and start music
-        // Load sfx
         // Rules & directions
         // Prompt user to press 'START' button when ready.
+    })
 
         
     //TODO: - NEXT QUESTION - Create function for generating/printing new question to page (var nextQuestion = function()...)

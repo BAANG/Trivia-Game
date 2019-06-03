@@ -13,12 +13,33 @@
   </head>
   <body>
     <div class="container">
-      <div class="jumbotron jumbotron-fluid">
-      <h1>Welcome to Reverse Jeopardy where we do things backwards...</h1>
-      <h4 class="lead">Use statements to answer the following questions and prompts!</h4>
+      <div id="splash">
+        <div class="jumbotron jumbotron-fluid">
+        <h1>Welcome to Reverse Jeopardy!</h1>
+        <h4 class="lead">Use statements to answer the following questions and prompts!</h4>
+        </div>
+        <div class="col-12 text-center">
+          <button type="button" class="btn btn-primary" id="start">Let's Play Reverse Jeopardy!</button>
+        </div>
       </div>
-      <button type="button" class="btn btn-primary" id="start">START</button>
 
+      <div id="quiz">
+        <div class="jumbotron jumbotron-fluid">
+          Question <span id="question-number"></span>
+          <br><br>
+          <span>Timer: <span id="countdown"></span></span>
+        </div>
+        <div id="options">
+          <!-- TODO: Answer options here -->
+        </div>
+      </div>
+
+      <div id="results">
+        <div class="jumbotron jumbotron-fluid">
+          <h2>You scored...</h2>
+          <div id="score"></div>
+        </div>
+      </div>
     </div>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
