@@ -1,3 +1,23 @@
+.scale-in {
+    animation: scale-in-center 1s;
+    animation-fill-mode: forwards;
+}
+
+.scale-out {
+    animation: scale-out-center 1s;
+    animation-fill-mode: forwards;
+}
+
+.slide-in {
+    animation: slide-in-elliptic-top-fwd 1s;
+    animation-fill-mode: forwards;
+}
+
+.slide-out {
+    animation: slide-out-elliptic-top-bck 1s;
+    animation-fill-mode: forwards;
+}
+
 .jumbotron {
     text-align: center;
 }

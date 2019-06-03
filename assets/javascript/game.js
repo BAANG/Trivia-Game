@@ -20,16 +20,26 @@ var questions = [
     new makeQuestion("True or False: A polar bear's skin is black.", ["True", "False"], "True", "[img src]"),
 ];
 
+hideSplash = function() {
+    $("#splash").css("visibility", "hidden"); //...hides splash div
+    $("#quiz").addClass("slide-in");
+    $("#quiz").css("visibility", "visible"); // reveals quiz ui
+}
+
+
 
 $(document).ready(function(){ //On page load...
     // Load sfx
-
     console.log(questions[1].currentAnswer)
+
+    $("#splash").addClass("scale-in");
 
     //Splash screen
     $("#start").on("click", function() {
 
-        $("#splash").css("visibility", "hidden"); //...hides splash div
+        $("#splash").addClass("scale-out");
+
+        setTimeout(hideSplash, 1000);
         
         // Animate and start music
         // Rules & directions
