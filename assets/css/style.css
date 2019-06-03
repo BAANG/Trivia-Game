@@ -1,3 +1,7 @@
+.jumbotron {
+    text-align: center;
+}
+
 #quiz, #results {
     visibility: hidden
 }
