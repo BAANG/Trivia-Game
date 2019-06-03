@@ -20,16 +20,55 @@ var questions = [
     new makeQuestion("True or False: A polar bear's skin is black.", ["True", "False"], "True", "[img src]"),
 ];
 
-hideSplash = function() {
+var hideSplash = function() {
     $("#splash").css("visibility", "hidden"); //...hides splash div
+
+    //TODO: Load question and answer data (question 1)
+
     $("#quiz").addClass("slide-in");
     $("#quiz").css("visibility", "visible"); // reveals quiz ui
+    setTimeout(function() {
+        $("#quiz").removeClass("slide-in")
+    }, 1000)
 }
 
+var countdownInterval = function () {
+    countdown--;
+    $("#countdown").text(countdown);
+}
+
+var nextQuestion = function() {
+    $("#quiz").addClass("slide-out");
+    
+    setTimeout(function () {
+
+        //TODO: Load question and answer data
+
+        $("#quiz").addClass("slide-in");
+        $("#quiz").css("visibility", "visible");
+        setTimeout(function() {
+            $("#quiz").removeClass("slide-in");
+            beginCountdown();
+        }, 1000)
+
+    }, 1000)
+    
+}
+
+var beginCountdown = function() {
+    $("#countdown").text(countdown);
+    setInterval(countdownInterval, 1000);
+}
+
+//TODO: - TIMER FUNCTION - Create function for timer/countdown (may possibly be nested witin nextQuestion())
+     // - single second intervals, decrement 'countdown', print new countdown value to page
 
 
 $(document).ready(function(){ //On page load...
-    // Load sfx
+    // TODO:
+        // Play Jeopardy music
+        // Load Sound Effects
+            // Option hover, option select, correct answer, wrong answer, slide-in, slide-out
     console.log(questions[1].currentAnswer)
 
     $("#splash").addClass("scale-in");
@@ -38,22 +77,11 @@ $(document).ready(function(){ //On page load...
     $("#start").on("click", function() {
 
         $("#splash").addClass("scale-out");
-
-        setTimeout(hideSplash, 1000);
-        
-        // Animate and start music
-        // Rules & directions
-        // Prompt user to press 'START' button when ready.
+        setTimeout(hideSplash, 1000); //note: hideSplash also loads first question
     })
 
         
-    //TODO: - NEXT QUESTION - Create function for generating/printing new question to page (var nextQuestion = function()...)
-        // Starts countdown timer after generating question to page
-        // Utilizes makeQuestion() constructor to dynamically create question objects
-        // Utilizes questionNum as for loop iterator and/or for tracking the next question in questions array
         
-    //TODO: - TIMER FUNCTION - Create function for timer/countdown (may possibly be nested witin nextQuestion())
-         // - single second intervals, decrement 'countdown', print new countdown value to page
 
     //TODO: - SHOW ANSWER - Create function for revealing answer (var showAnswer = function()...)
         // will have setTimeout(nextQuestion, 5000) nested inside
