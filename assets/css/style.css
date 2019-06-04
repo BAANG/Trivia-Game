@@ -36,6 +36,10 @@
     visibility: hidden
 }
 
+#quiz {
+    z-index: 1;
+}
+
 .btn {
     width: 200px;
     margin: 0 10px;
@@ -52,8 +56,17 @@
 }
 
 #answer {
+    position: fixed;
+    border: 1px solid;
+    border-color: black;
+    top: 50%;
+    left: 32%;
     visibility: hidden;
-    z-index: 1;
+}
+
+#right, #wrong{
+    margin: 0 auto;
+    width: 50%;
 }
 
 #right {

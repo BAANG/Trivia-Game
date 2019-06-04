@@ -27,12 +27,6 @@ var newAnswer = questions[questionIndex].currentAnswer
 var newExplain = questions[questionIndex].currentExplain
 
 var loadQuestion = function() {
-    // newPrompt = questions[questionIndex].currentQuestion
-    // newOptions = questions[questionIndex].currentOptions
-    // newAnswer = questions[questionIndex].currentAnswer
-    // newExplain = questions[questionIndex].currentExplain
-    
-    beginCountdown()
     
     $("#question-number").text("#" + questionNum);
     
@@ -42,14 +36,14 @@ var loadQuestion = function() {
     $("#prompt").append("<div id='quiz-options'>")
     for (var j = 0; j < newOptions.length; j++) {
         
-        $("#quiz-options").append("<button type='button' class='btn btn-primary choices' value='" + newOptions[j] + "' >  " + newOptions[j] + "</button>")
+        $("#quiz-options").append("<button type='button' class='btn btn-primary' id='userPick' value='" + newOptions[j] + "'>" + newOptions[j] + "</button>")
 
     }
 }
 
 var hideSplash = function() {
     $("#splash").css("visibility", "hidden"); //...hides splash div
-    
+    beginCountdown();
     loadQuestion();
     $("#quiz").addClass("slide-in");
     $("#quiz").css("visibility", "visible"); // reveals quiz ui
@@ -79,16 +73,19 @@ var nextQuestion = function() {
     
 }
 
+var intervalId;
+
 var beginCountdown = function() {
     $("#countdown").text(countdown);
-    setInterval(countdownInterval, 1000);
+    intervalId = setInterval(countdownInterval, 1000);
+    
 }
-
 
 var stopCountdown = function() {
-    clearInterval(countdownInterval);
+    clearInterval(intervalId);
     countdown=30;
 }
+
 
 var countdownInterval = function () {
     countdown--;
@@ -126,10 +123,16 @@ $("#start").on("click", function() {
     $("#splash").addClass("scale-out");
     setTimeout(hideSplash, 1000); //note: hideSplash also loads first question
 
-    });
+    console.log(newPrompt)
+    console.log(newAnswer)
+    
+});
 
-$('.choices').on("click", function() {
-    console.log("You picked an option")
+
+// Quiz options
+
+$(document).on("click", "#userPick", function() {
+    stopCountdown();
 
     if (this.value == newAnswer) {
         animateAnswer();
