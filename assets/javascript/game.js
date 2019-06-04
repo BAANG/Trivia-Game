@@ -110,6 +110,8 @@ $(document).ready(function(){ //On page load...
         setTimeout(hideSplash, 1000); //note: hideSplash also loads first question
     })
 
+    
+
         
         
 
@@ -117,8 +119,6 @@ $(document).ready(function(){ //On page load...
         // will have setTimeout(nextQuestion, 5000) nested inside
             // TODO: create html layout with div for quiz question & answers (change div innerHTML to reveal correct answer and image)
 
-    $("#start").on("click", function() { // When start button is clickedd
-        // Hide splash screen div
 
         // Begin 'for' loop without iterator limited by questions.length (questionNum++ when question is answered OR timer is up)
             // Reveal/make visible quiz/question div 
@@ -139,4 +139,3 @@ $(document).ready(function(){ //On page load...
             
             
     })
-})
