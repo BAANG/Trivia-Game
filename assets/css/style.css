@@ -1,3 +1,7 @@
+body {
+    padding-top: 5px;
+}
+
 hr {
     padding: auto 5px;
 }
@@ -62,7 +66,7 @@ hr {
 
 .btn {
     width: 200px;
-    margin: 0 10px;
+    margin: 5px 10px;
 }
 
 #start {
@@ -76,9 +80,10 @@ hr {
 }
 
 #answer {
-    position: fixed;
+    position: absolute;
     top: 50%;
-    left: 32%;
+    left: 25%;
+    width: 50%;
     visibility: hidden;
 }
 

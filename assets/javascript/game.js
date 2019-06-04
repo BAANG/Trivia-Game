@@ -3,7 +3,7 @@ var questionArray = []; // TODO: Insert list of questions
 var correct = 0;
 var incorrect = 0;
 var questionIndex = 0; // for tracking index of questions array
-var questionNum = (questionIndex + 1); // for printing correct question number on page
+var questionNum = 1; // for printing correct question number on page
 
 
 // Constructor for Trivia Questions
@@ -47,8 +47,8 @@ newExplain = questions[questionIndex].currentExplain
     
     $("#prompt").append("<div id='quiz-options'>")
     for (var j = 0; j < newOptions.length; j++) {
-        
-        $("#quiz-options").append("<button type='button' class='btn btn-primary' id='userPick' value='" + newOptions[j] + "'>" + newOptions[j] + "</button>")
+        $("#quiz-options").prepend("<div class=col-4>")
+        $("#quiz-options").append("<button type='button' class='btn btn-primary' id='userPick' value='" + newOptions[j] + "'>" + newOptions[j] + "</button></div>")
 
     }
 }
@@ -67,6 +67,7 @@ var hideSplash = function() {
 
 var nextQuestion = function() {
     questionIndex++;
+    questionNum++;
 
     if (questionIndex === questions.length) {
         
@@ -152,6 +153,9 @@ $("#start").on("click", function() {
     
     $("#splash").addClass("scale-out");
     setTimeout(hideSplash, 1000); //note: hideSplash also loads first question
+    setTimeout(function() {
+        $("#splash").removeClass("scale-in", "scale-out");
+    }, 1500);
 
     console.log(newPrompt)
     console.log(newAnswer)
@@ -178,6 +182,12 @@ $(document).on("click", "#userPick", function() {
         $("#wrong").text(newExplain)
         setTimeout(nextQuestion, 6000)
     }
+})
+
+$(document).on("click", "#playAgain", function() {
+    countdown=30;
+    stopCountdown();
+
 })
 
 
