@@ -20,11 +20,34 @@ var questions = [
     new makeQuestion("True or False: A polar bear's skin is black.", ["True", "False"], "True", "[img src]"),
 ];
 
+var loadQuestion = function() {
+    var newPrompt = questions[questionIndex].currentQuestion
+    var newOptions = questions[questionIndex].currentOptions
+    var newAnswer = questions[questionIndex].currentAnswer
+    var newImage = questions[questionIndex].currentImage
+    
+    beginCountdown()
+
+    $("#question-number").text("#" + questionNum);
+
+    $("#countdown").after("<div id='prompt'>")
+    $("#countdown").after("<h4>" + newPrompt + "</h4><br><br>")
+
+    $("#prompt").append("<form>")
+    for (var j = 0; j < newOptions.length; j++) {
+
+        $("#prompt").append("<input type='radio' value='" + newOptions[j] + "' >  " + newOptions[j] + "</input><br>")
+
+    }
+    $("#prompt").append("</form")
+
+    
+}
+
 var hideSplash = function() {
     $("#splash").css("visibility", "hidden"); //...hides splash div
 
-    //TODO: Load question and answer data (question 1)
-
+    loadQuestion();
     $("#quiz").addClass("slide-in");
     $("#quiz").css("visibility", "visible"); // reveals quiz ui
     setTimeout(function() {
@@ -32,25 +55,23 @@ var hideSplash = function() {
     }, 1000)
 }
 
-var countdownInterval = function () {
-    countdown--;
-    $("#countdown").text(countdown);
-}
 
 var nextQuestion = function() {
+    questionIndex++;
+
     $("#quiz").addClass("slide-out");
     
-    setTimeout(function () {
-
-        //TODO: Load question and answer data
-
+    setTimeout(function () { // timed function for animating in new quiz card
+        
+        loadQuestion();
         $("#quiz").addClass("slide-in");
         $("#quiz").css("visibility", "visible");
         setTimeout(function() {
             $("#quiz").removeClass("slide-in");
             beginCountdown();
-        }, 1000)
 
+        }, 1000)
+        
     }, 1000)
     
 }
@@ -60,8 +81,17 @@ var beginCountdown = function() {
     setInterval(countdownInterval, 1000);
 }
 
-//TODO: - TIMER FUNCTION - Create function for timer/countdown (may possibly be nested witin nextQuestion())
-     // - single second intervals, decrement 'countdown', print new countdown value to page
+
+var stopCountdown = function() {
+    clearInterval(countdownInterval);
+    countdown=30;
+}
+
+var countdownInterval = function () {
+    countdown--;
+    $("#countdown").text(countdown);
+}
+
 
 
 $(document).ready(function(){ //On page load...
@@ -69,7 +99,7 @@ $(document).ready(function(){ //On page load...
         // Play Jeopardy music
         // Load Sound Effects
             // Option hover, option select, correct answer, wrong answer, slide-in, slide-out
-    console.log(questions[1].currentAnswer)
+    console.log(questions[1])
 
     $("#splash").addClass("scale-in");
 
