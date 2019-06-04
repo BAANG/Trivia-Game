@@ -18,6 +18,14 @@ function makeQuestion(prompt, options, answer, explain) {
 var questions = [                                
     new makeQuestion("How many days are in a week?", ["12", "8", "7", "5"], "7", "There are '7' days in a week. Sunday, Monday, Tuesday, Wednesday, Thursday, Friday and Saturday."),
     new makeQuestion("True or False: A polar bear's skin is black.", ["True", "False"], "True", "Underneath their fur, polar bear's have BLACK skin -- the better to soak in the sun's warmth."),
+    new makeQuestion("What school does Harry Potter attend?", ["Stanford", "MIT", "Fogwarts", "Hogwarts"], "Hogwarts", "Harry Potter attended Hogwarts School of Witchcraft and Wizardry"),
+    new makeQuestion("Michael Jackson was called thhe King of what?", ["King of Pop", "King of Soul", "Lord of the Dance", "Lord of the Flies"], "King of Pop", "Michael Jackson was called the 'King of Pop' and is still considered so to this day."),
+    new makeQuestion("What band would walk 500 miles and 500 more just to fall down at your door?", ["The Protectors", "Vanessa Carlton", "The Smiths", "The Proclaimers"],"The Protectors", "The Scottish duo known as The Proclaimers, released their famous song, 'I'm Gonna Be (500 Miles)', in 1988."),
+    new makeQuestion("Where was The Beatles' 'Can't Buy Me Love' recorded?", ["Liverpool", "London", "Brooklyn", "Paris"],"Paris" , "The Beatles recorded 'Can't Buy Me Love' in Paris, France and was written by John Lennon and Paul McCartney."),
+    new makeQuestion("How many furlongs to a mile?", ["8", "16", "2.4", "12"], "8", "There are 8 furlongs to a mile."),
+    new makeQuestion("In bowling, what is it if you knock down all the pins with two balls?", ["A turkey", "A double", "A spare", "A strike"], "A spare", "Knocking down a whole set of pins with two balls is called 'a spare'."),
+    new makeQuestion("Winona Ryder and Christian Slater starred in this cult classic film?", ["Mean Girls", "Stranger Things", "Heathers", "Titanic"], "Heathers", "Heathers is a 1988 American dark comedy film written by Daniel Waters and directed by Michael Lehmann."),
+    new makeQuestion("Robert Plant was the lead singer for what rock band from 1968 to 1980?", ["The Proclaimers", "Metallica", "The Plantation", "Led Zeppelin"], "Led Zeppelin", "Robert Anthony Plant CBE (born 20 August 1948) is an English singer, songwriter, and musician, best known as the lead singer and lyricist of the rock band Led Zeppelin. Plant is regarded as one of the greatest vocalists in the history of rock music.")
 ];
 
 var newPrompt = questions[questionIndex].currentQuestion
@@ -26,6 +34,8 @@ var newAnswer = questions[questionIndex].currentAnswer
 var newExplain = questions[questionIndex].currentExplain
 
 var loadQuestion = function() {
+    var audio = $("#swoosh")[0];
+    audio.play();
 
 newPrompt = questions[questionIndex].currentQuestion
 newOptions = questions[questionIndex].currentOptions
@@ -65,6 +75,9 @@ var hideSplash = function() {
 
 
 var nextQuestion = function() {
+    var audio = $("#swoosh")[0];
+    audio.play();
+
     questionIndex++;
     questionNum++;
 
@@ -78,6 +91,9 @@ var nextQuestion = function() {
         $("#incorrect").html("<h3>" + incorrect + "</h3> questions wrong...")
 
         setTimeout(function() {
+            var audio = $("#fanfare")[0];
+            audio.play();
+
             $("#quiz").css("visibility", "hidden")
             $("#results").css("visibility", "visible");
             $("#results").addClass("puff-in")
@@ -112,6 +128,7 @@ var intervalId;
 var beginCountdown = function() {
     $("#countdown").text(countdown);
     intervalId = setInterval(countdownInterval, 1000);
+
     
 }
 
@@ -121,8 +138,18 @@ var stopCountdown = function() {
 
 
 var countdownInterval = function () {
-    countdown--;
-    $("#countdown").text(countdown);
+    if (countdown <= 0) {
+        stopCountdown();
+        countdown=30;
+        incorrect++;
+        animateAnswer();
+        $("#right-wrong").text("OUT OF TIME!")
+        $("#wrong").text(newExplain)
+        setTimeout(nextQuestion, 6000)  
+    } else {
+        countdown--;
+        $("#countdown").text(countdown);
+    }
 }
 
 var animateAnswer = function () {
@@ -142,10 +169,19 @@ var animateAnswer = function () {
 
 
 $(document).ready(function(){ //On page load...
-// TODO:
-    // Play Jeopardy music
-    // Load Sound Effects
-    // Option hover, option select, correct answer, wrong answer, slide-in, slide-out
+    var audio = $("#intro")[0];
+        audio.play();
+
+    $(document).on("mouseenter", ".btn", function() {
+    var audio = $("#blop")[0];
+        audio.play();
+    });
+
+    $(document).on("click", ".btn", function() {
+    var audio = $("#click")[0];
+        audio.play();
+    })
+
 console.log(questions)
 
 $("#splash").addClass("scale-in");
