@@ -1,5 +1,4 @@
 var countdown = 30;
-var questionArray = []; // TODO: Insert list of questions
 var correct = 0;
 var incorrect = 0;
 var questionIndex = 0; // for tracking index of questions array
@@ -35,7 +34,7 @@ newExplain = questions[questionIndex].currentExplain
 
     $("#question-number").empty();
     $("#prompt").empty();
-    $("#askQuestion").empty();
+    $("#askQuestion").remove();
     $("#right").empty();
     $("#wrong").empty();
 
@@ -43,7 +42,7 @@ newExplain = questions[questionIndex].currentExplain
     $("#question-number").text("#" + questionNum);
     
     $("#countdown").after("<div id='prompt'>")
-    $("#countdown").after("<span id='askQuestion'><h4>" + newPrompt + "</h4></span><br><br>")
+    $("#countdown").after("<span id='askQuestion'><h4>" + newPrompt + "</h4><br></span>")
     
     $("#prompt").append("<div id='quiz-options'>")
     for (var j = 0; j < newOptions.length; j++) {
@@ -69,6 +68,8 @@ var nextQuestion = function() {
     questionIndex++;
     questionNum++;
 
+    $("#askQuestion").remove();
+
     if (questionIndex === questions.length) {
         
         $("#quiz").addClass("slide-out");
@@ -77,6 +78,7 @@ var nextQuestion = function() {
         $("#incorrect").html("<h3>" + incorrect + "</h3> questions wrong...")
 
         setTimeout(function() {
+            $("#quiz").css("visibility", "hidden")
             $("#results").css("visibility", "visible");
             $("#results").addClass("puff-in")
             $("#correct").addClass("pulse")
@@ -185,13 +187,27 @@ $(document).on("click", "#userPick", function() {
 })
 
 $(document).on("click", "#playAgain", function() {
-    countdown=30;
     stopCountdown();
+    $("#splash").removeClass("scale-out")
+    $("#quiz").removeClass("slide-out")
+    $("#results").removeClass("puff-in")
+    $("#results").addClass("#puff-out")
+   
+    setTimeout(function() {
+        $("#results").removeClass("#puff-out")
+        $("#results").css("visibility", "hidden")
+        $("#splash").addClass("scale-in")
+        $("#splash").css("visibility", "visible")
+    }, 1000)
 
-})
+
+    countdown = 30;
+    correct = 0;
+    incorrect = 0;
+    questionIndex = 0; // for tracking index of questions array
+    questionNum = 1; // for printing correct question number on page
 
 
-            // Start over/game reset
-            
-            
+})     
+
 })
