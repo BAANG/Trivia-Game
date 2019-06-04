@@ -18,6 +18,16 @@
     animation-fill-mode: forwards;
 }
 
+.roll-in {
+    animation: roll-in-blurred-left 1s;
+    animation-fill-mode: forwards;
+}
+
+.roll-out {
+    animation: roll-out-blurred-right 1s;
+    animation-fill-mode: forwards;
+}
+
 .jumbotron {
     text-align: center;
 }
@@ -36,6 +46,16 @@
     text-align: center;
     position: relative;
     left: -50px;
+}
 
-    
+#answer {
+    visibility: hidden;
+}
+
+#right {
+    background-color: green;
+}
+
+#wrong {
+    background-color: red;
 }
