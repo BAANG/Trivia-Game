@@ -1,3 +1,7 @@
+hr {
+    padding: auto 5px;
+}
+
 .scale-in {
     animation: scale-in-center 1s;
     animation-fill-mode: forwards;
@@ -28,8 +32,24 @@
     animation-fill-mode: forwards;
 }
 
+.puff-in {
+    animation: puff-in-center 1s;
+    animation-fill-mode: forwards
+}
+
+.puff-out {
+    animation: puff-out-center 1s;
+    animation-fill-mode: forwards
+}
+
+.pulse {
+    animation: heartbeat 3s infinite;
+}
+
 .jumbotron {
     text-align: center;
+    border: 1px solid;
+    border-color: black;
 }
 
 #quiz, #results {
@@ -57,22 +77,31 @@
 
 #answer {
     position: fixed;
-    border: 1px solid;
-    border-color: black;
     top: 50%;
     left: 32%;
     visibility: hidden;
 }
 
+#results {
+    position: fixed;
+    top: 35%;
+    left: 10%;
+    width: 80%;
+    margin: 0 auto;
+}
+
 #right, #wrong{
     margin: 0 auto;
     width: 50%;
+    color: whitesmoke;
 }
 
 #right {
     background-color: green;
+    padding: 0px 5px;
 }
 
 #wrong {
     background-color: red;
+    padding: 0px 5px;
 }

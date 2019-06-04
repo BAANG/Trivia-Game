@@ -27,11 +27,23 @@ var newAnswer = questions[questionIndex].currentAnswer
 var newExplain = questions[questionIndex].currentExplain
 
 var loadQuestion = function() {
+
+newPrompt = questions[questionIndex].currentQuestion
+newOptions = questions[questionIndex].currentOptions
+newAnswer = questions[questionIndex].currentAnswer
+newExplain = questions[questionIndex].currentExplain
+
+    $("#question-number").empty();
+    $("#prompt").empty();
+    $("#askQuestion").empty();
+    $("#right").empty();
+    $("#wrong").empty();
+
     
     $("#question-number").text("#" + questionNum);
     
     $("#countdown").after("<div id='prompt'>")
-    $("#countdown").after("<h4>" + newPrompt + "</h4><br><br>")
+    $("#countdown").after("<span id='askQuestion'><h4>" + newPrompt + "</h4></span><br><br>")
     
     $("#prompt").append("<div id='quiz-options'>")
     for (var j = 0; j < newOptions.length; j++) {
@@ -56,20 +68,39 @@ var hideSplash = function() {
 var nextQuestion = function() {
     questionIndex++;
 
-    $("#quiz").addClass("slide-out");
-    
-    setTimeout(function () { // timed function for animating in new quiz card
+    if (questionIndex === questions.length) {
         
-        loadQuestion();
-        $("#quiz").addClass("slide-in");
-        $("#quiz").css("visibility", "visible");
+        $("#quiz").addClass("slide-out");
+
+        $("#correct").html("<h3>" + correct + "</h3> questions correct!")
+        $("#incorrect").html("<h3>" + incorrect + "</h3> questions wrong...")
+
         setTimeout(function() {
-            $("#quiz").removeClass("slide-in");
+            $("#results").css("visibility", "visible");
+            $("#results").addClass("puff-in")
+            $("#correct").addClass("pulse")
+            $("#incorrect").addClass("pulse")
+        }, 1000)
+
+    } else {
+
+        $("#quiz").addClass("slide-out");
+        
+        setTimeout(function () { // timed function for animating in new quiz card
+            
+            loadQuestion();
+            $("#quiz").removeClass("slide-out");
+            $("#quiz").addClass("slide-in");
+            $("#quiz").css("visibility", "visible");
             beginCountdown();
+            setTimeout(function() {
+                $("#quiz").removeClass("slide-in");
+                
+            }, 1000)
             
         }, 1000)
-        
-    }, 1000)
+    }
+
     
 }
 
@@ -83,7 +114,6 @@ var beginCountdown = function() {
 
 var stopCountdown = function() {
     clearInterval(intervalId);
-    countdown=30;
 }
 
 
@@ -132,45 +162,26 @@ $("#start").on("click", function() {
 // Quiz options
 
 $(document).on("click", "#userPick", function() {
+    countdown=30;
     stopCountdown();
 
     if (this.value == newAnswer) {
+        correct++;
         animateAnswer();
         $("#right-wrong").text("RIGHT")
         $("#right").text(newExplain)
+        setTimeout(nextQuestion, 6000)
     } else {
+        incorrect++;
         animateAnswer();
         $("#right-wrong").text("WRONG")
         $("#wrong").text(newExplain)
+        setTimeout(nextQuestion, 6000)
     }
 })
 
-    
-
-        
-        
-
-    //TODO: - SHOW ANSWER - Create function for revealing answer (var showAnswer = function()...)
-        // will have setTimeout(nextQuestion, 5000) nested inside
-            // TODO: create html layout with div for quiz question & answers (change div innerHTML to reveal correct answer and image)
-
-
-        // Begin 'for' loop without iterator limited by questions.length (questionNum++ when question is answered OR timer is up)
-            // Reveal/make visible quiz/question div 
-               
-                // nextQuestion()
-                // Start timer function (30s)
-    
-                    // on.click() event listener with option buttons as target
-                    // stores if answer is correct or not (questions[i].currentAnswer === event.value(???))
-                    // triggers answer reveal (showAnswer())
-                        // - ideally, showAnswer() will then run nextQuestion() function
-
-                        //  LOOP UNTIL (questionIndex === questions.length)
-
-            // Show new div with values for correct & incorrect
 
             // Start over/game reset
             
             
-    })
+})
