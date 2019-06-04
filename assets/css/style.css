@@ -37,6 +37,11 @@
 }
 
 .btn {
+    width: 200px;
+    margin: 0 10px;
+}
+
+#start {
     width: 100%;
     margin: 0 auto;
 }
@@ -44,12 +49,11 @@
 #prompt {
     margin: 0 auto;
     text-align: center;
-    position: relative;
-    left: -50px;
 }
 
 #answer {
     visibility: hidden;
+    z-index: 1;
 }
 
 #right {

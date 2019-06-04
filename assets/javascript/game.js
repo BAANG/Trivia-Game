@@ -39,13 +39,12 @@ var loadQuestion = function() {
     $("#countdown").after("<div id='prompt'>")
     $("#countdown").after("<h4>" + newPrompt + "</h4><br><br>")
     
-    $("#prompt").append("<form>")
+    $("#prompt").append("<div id='quiz-options'>")
     for (var j = 0; j < newOptions.length; j++) {
         
-        $("#prompt").append("<input type='radio' name='choices' value='" + newOptions[j] + "' >  " + newOptions[j] + "</input><br>")
-        
+        $("#quiz-options").append("<button type='button' class='btn btn-primary choices' value='" + newOptions[j] + "' >  " + newOptions[j] + "</button>")
+
     }
-    $("#prompt").append("</form>")
 }
 
 var hideSplash = function() {
@@ -96,6 +95,20 @@ var countdownInterval = function () {
     $("#countdown").text(countdown);
 }
 
+var animateAnswer = function () {
+    $("#answer").css("visibility", "visible")
+    $("#answer").addClass("roll-in")
+    setTimeout(function() {
+        $("#answer").addClass("roll-out")
+        $("#answer").removeClass("roll-in")
+    }
+    , 5000)
+    setTimeout(function() {
+        $("#answer").css("visibility", "hidden")
+        $("#answer").removeClass("roll-out")
+    }, 6000)
+}
+
 
 
 $(document).ready(function(){ //On page load...
@@ -115,15 +128,19 @@ $("#start").on("click", function() {
 
     });
 
-    $('input[type=radio][name=choices]').change(function() {
-        if (this.value === newAnswer) {
-            $("#right-wrong").text("RIGHT")
-            $("#right").text(newExplain)
-        } else {
-            $("#right-wrong").text("WRONG")
-            $("#wrong").text(newExplain)
-        }
-    })
+$('.choices').on("click", function() {
+    console.log("You picked an option")
+
+    if (this.value == newAnswer) {
+        animateAnswer();
+        $("#right-wrong").text("RIGHT")
+        $("#right").text(newExplain)
+    } else {
+        animateAnswer();
+        $("#right-wrong").text("WRONG")
+        $("#wrong").text(newExplain)
+    }
+})
 
     
 
